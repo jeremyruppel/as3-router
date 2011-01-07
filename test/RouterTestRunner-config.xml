@@ -16,7 +16,6 @@
 		</library-path>
 		<source-path append="true">
 			<path-element>../src/</path-element>
-			<path-element>../libs/src/</path-element>
 		</source-path>
 		<keep-as3-metadata>
 			<name>Suite</name>

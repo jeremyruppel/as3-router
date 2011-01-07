@@ -108,6 +108,21 @@ package com.jeremyruppel.routing.base
 			router.route( '/users/jbone' );
 		}
 		
+		[Test(async,description='map route provides a route event to handler with accurate splat information')]
+		public function test_map_route_provides_a_route_event_to_handler_with_accurate_splat_information( ) : void
+		{
+			var handler : Function = Async.asyncHandler( this, function( event : RouteEvent, data : Object ) : void
+			{
+				assertThat( event.route.captures[ 0 ], equalTo( 'username' ) );
+			}, 500 );
+			
+			router.eventDispatcher.addEventListener( TestRouteEvent.TEST, handler );
+			
+			router.mapRoute( '/*/profile', TestRouteEvent.TEST );
+			
+			router.route( '/username/profile' );
+		}
+		
 		//--------------------------------------
 		//  CONSTRUCTOR
 		//--------------------------------------

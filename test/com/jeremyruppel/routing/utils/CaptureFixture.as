@@ -68,6 +68,16 @@ package com.jeremyruppel.routing.utils
 			assertThat( result[ 2 ], equalTo( 'two' ) );
 		}
 		
+		[Test(description='passing captured string followed by literal captures as expected')]
+		public function test_passing_captured_string_followed_by_literal_captures_as_expected( ) : void
+		{
+			var pattern : RegExp = new RegExp( capture( '/*/home' ) );
+			
+			var result : Object = pattern.exec( '/username/home' );
+			
+			assertThat( result[ 1 ], equalTo( 'username' ) );
+		}
+		
 		[Test(description="passing named captures into regexp captures as expected")]
 		public function test_passing_named_captures_into_regexp_captures_as_expected( ) : void
 		{
