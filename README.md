@@ -13,8 +13,8 @@ route information and parameters.
 Also, it should be noted that the router works extremely well with [RobotLegs][RobotLegs],
 though there are absolutely no dependencies on it.
 
-Usage
------
+Usage Overview
+--------------
 
 A router can be instantiated stand-alone and can route events through its
 `eventDispatcher` accessor.
@@ -43,6 +43,46 @@ context, like:
 	
 	// later on...
 	router.route( '/hello/awesome' );
+
+Route Mappings
+--------------
+
+The base Router implementation can map string routes, regex routes, and query string routes
+(represented as objects). The most typical and convenient use case should be to map string
+routes, as they are internally converted to regex patterns with some common pattern conventions
+that should be familiar to anyone who has experience routing with Sinatra or Backbone.
+
+`mapRoute` can accept named parameters denoted by a colon. For example:
+
+	router.mapRoute( '/hello/:name' );
+
+will match "/hello/world", "hello/friend", "hello/no-wait-actually-goodbye", etc. The value of 
+a named parameter can be retrieved from the `route` object of the route event dispatched
+when this route is matched, like:
+
+	event.route.params( 'name' ); // => 'no-wait-actually-goodbye'
+
+Multiple parameters can be declared and will each be matched by name:
+
+	router.mapRoute( '/:section/:page' );
+	
+	router.hasRoute( '/company/manifesto' ); // => true
+	
+	// and for the event's route...
+	event.route.params( 'section' ); // => 'company'
+	event.route.params( 'page' ); // => 'manifesto'
+
+String routes can also contain splats that will be available as unnamed captures populated in
+the route object's `captures` array:
+
+	router.mapRoute( '/*/profile' );
+	
+	router.hasRoute( '/username/profile' ); // => true
+	
+	router.hasRoute( '/username/contact' ); // => false
+	
+	// and for the event's route...
+	event.route.captures[ 0 ]; // => 'username'
 
 [Sinatra]: http://www.sinatrarb.com/ "Sinatra"
 [Backbone]: http://documentcloud.github.com/backbone/ "Backbone.js"
