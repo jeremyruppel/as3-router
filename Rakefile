@@ -7,6 +7,27 @@ module Router
   VERSION = '0.1.1'
 end
 
+desc "Updates all source and test file headers"
+task :headers do
+  header = <<EOS
+//AS3///////////////////////////////////////////////////////////////////////////
+// 
+// Copyright (c) 2010 the original author or authors
+//
+// Permission is hereby granted to use, modify, and distribute this file
+// in accordance with the terms of the license agreement accompanying it.
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+EOS
+  Dir[ '{src,test}/**/*.as' ].each do |uri|
+    src = IO.read( uri )
+    File.open( uri, 'w+' ) do |f|
+      f << src.sub( /.+?(?=package)/m, header )
+    end
+  end
+end
+
 desc "Builds documentation"
 task :docs do
   `asdoc \
@@ -57,4 +78,4 @@ task :test do
 end
 
 desc "Builds SWC, docs, manifest, and tests"
-task :release => [ :docs, :swc, :test ]
+task :release => [ :headers, :docs, :swc, :test ]
