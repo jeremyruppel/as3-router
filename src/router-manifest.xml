@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<componentPackage>
+  <component class="com.jeremyruppel.routing.base.Route"/>
+  <component class="com.jeremyruppel.routing.base.Router"/>
+  <component class="com.jeremyruppel.routing.core.IRoute"/>
+  <component class="com.jeremyruppel.routing.core.IRouter"/>
+  <component class="com.jeremyruppel.routing.core.IRule"/>
+  <component class="com.jeremyruppel.routing.events.RouteEvent"/>
+  <component class="com.jeremyruppel.routing.routes.HashRoute"/>
+  <component class="com.jeremyruppel.routing.routes.RegExpRoute"/>
+  <component class="com.jeremyruppel.routing.rules.HashRule"/>
+  <component class="com.jeremyruppel.routing.rules.RegExpRule"/>
+  <component class="com.jeremyruppel.routing.utils.bookend"/>
+  <component class="com.jeremyruppel.routing.utils.capture"/>
+  <component class="com.jeremyruppel.routing.utils.parse"/>
+  <component class="com.jeremyruppel.routing.utils.query"/>
+</componentPackage>
