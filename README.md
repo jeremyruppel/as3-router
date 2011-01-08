@@ -25,7 +25,9 @@ A router can be instantiated stand-alone and can route events through its
 	
 	router.eventDispatcher.addEventListener( CustomRouteEvent.HELLO, function( event : RouteEvent ) : void
 	{
-		trace( event.route.params( 'name' ) ); // => awesome
+		event.route.value; // => '/hello/awesome'
+		
+		event.route.params( 'name' ); // => awesome
 	} );
 	
 	// later on...
@@ -83,6 +85,23 @@ the route object's `captures` array:
 	
 	// and for the event's route...
 	event.route.captures[ 0 ]; // => 'username'
+
+`mapQuery` can match query-string-style routes if you need them. Because query strings are
+unordered key value pairs, they are matched as simple objects, like:
+
+	router.mapQuery( { page : 'home', action : 'whatever' } );
+	
+	router.route( '?action=whatever&page=home' );
+	
+	// and for the event's route...
+	event.route.params( 'action' ); // => 'whatever'
+	event.route.params( 'page' ); // => 'home'
+
+Unmapped Routes
+---------------
+
+If no route is matched through a call to `route`, a `RouteEvent.NOT_FOUND` event will
+be dispatched from the router's eventDispatcher.
 
 [Sinatra]: http://www.sinatrarb.com/ "Sinatra"
 [Backbone]: http://documentcloud.github.com/backbone/ "Backbone.js"
