@@ -57,14 +57,30 @@ package com.jeremyruppel.routing.base
 			assertThat( router.hasRoute( '/home' ), isTrue( ) );
 		}
 		
+		[Test(description="map pattern matches route with query string afterwards")]
+		public function test_map_pattern_matches_route_with_query_string_afterwards( ) : void
+		{
+			router.mapPattern( /^\/home$/, TestRouteEvent.TEST );
+			
+			assertThat( router.hasRoute( '/home?hello=tests' ), isTrue( ) );
+		}
+		
 		[Test(description="map pattern can match parts of a route")]
 		public function test_map_pattern_can_match_parts_of_a_route( ) : void
 		{
 			router.mapPattern( /^\/home/, TestRouteEvent.TEST );
 			
 			assertThat( router.hasRoute( '/home' ), isTrue( ) );
-			
 			assertThat( router.hasRoute( '/homeopathy' ), isTrue( ) );
+		}
+		
+		[Test(description="map pattern can match parts of a route with query string afterwards")]
+		public function test_map_pattern_can_match_parts_of_a_route_with_query_string_afterwards( ) : void
+		{
+			router.mapPattern( /^\/home/, TestRouteEvent.TEST );
+			
+			assertThat( router.hasRoute( '/home?hello=tests' ), isTrue( ) );
+			assertThat( router.hasRoute( '/homeopathy?hello=tests' ), isTrue( ) );
 		}
 		
 		[Test(description="map pattern can match anything with the splat operator")]

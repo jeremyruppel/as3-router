@@ -29,11 +29,12 @@ package com.jeremyruppel.routing.routes
 		/**
 		 * @constructor
 		 */
-		public function RegExpRoute( result : Array )
+		public function RegExpRoute( result : Array, params : Object = null )
 		{
 			super( result[ 0 ] );
 			
 			_result = result;
+			_params = params || { };
 		}
 	
 		//--------------------------------------
@@ -44,6 +45,11 @@ package com.jeremyruppel.routing.routes
 		 * @private
 		 */
 		private var _result : Array;
+		
+		/**
+		 * @private
+		 */
+		private var _params : Object;
 		
 		//--------------------------------------
 		//  GETTER/SETTERS
@@ -68,7 +74,7 @@ package com.jeremyruppel.routing.routes
 		 */
 		override public function params( key : String ) : String
 		{
-			return _result[ key ];
+			return _result[ key ] || _params[ key ];
 		}
 	
 	}

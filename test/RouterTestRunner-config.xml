@@ -32,4 +32,5 @@
 		<language>EN</language>
 	</metadata>
 	<raw-metadata></raw-metadata>
+	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 </flex-config>

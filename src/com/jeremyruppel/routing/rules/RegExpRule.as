@@ -12,6 +12,7 @@ package com.jeremyruppel.routing.rules
 	import com.jeremyruppel.routing.core.IRoute;
 	import com.jeremyruppel.routing.core.IRule;
 	import com.jeremyruppel.routing.routes.RegExpRoute;
+	import com.jeremyruppel.routing.utils.parse;
 
 	/**
 	 * A routing rule based on a regular expression pattern.
@@ -74,7 +75,7 @@ package com.jeremyruppel.routing.rules
 		 */
 		public function matches( route : String ) : Boolean
 		{
-			return _pattern.test( route );
+			return _pattern.test( route.split( '?' ).shift( ) );
 		}
 		
 		/**
@@ -84,7 +85,7 @@ package com.jeremyruppel.routing.rules
 		 */
 		public function execute( route : String ) : IRoute
 		{
-			return new RegExpRoute( _pattern.exec( route ) );
+			return new RegExpRoute( _pattern.exec( route.split( '?' ).shift( ) ), parse( route ) );
 		}
 	
 	}
