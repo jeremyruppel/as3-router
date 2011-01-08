@@ -4,7 +4,7 @@ require 'rubygems'
 require 'nokogiri'
 
 module Router
-  VERSION = '0.1.1'
+  VERSION = '0.1.2'
 end
 
 desc "Updates all source and test file headers"
@@ -12,7 +12,7 @@ task :headers do
   header = <<EOS
 //AS3///////////////////////////////////////////////////////////////////////////
 // 
-// Copyright (c) 2010 the original author or authors
+// Copyright (c) 2011 the original author or authors
 //
 // Permission is hereby granted to use, modify, and distribute this file
 // in accordance with the terms of the license agreement accompanying it.
