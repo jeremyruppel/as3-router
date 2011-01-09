@@ -68,12 +68,12 @@ end
 desc "Compiles and runs the test suite"
 task :test do
   `mxmlc \
-  -source-path+=test,src,libs/src \
+  -source-path+=test,src \
   -library-path+=libs/bin \
   -output deploy/Router.swf \
   -static-link-runtime-shared-libraries=false \
   test/RouterTestRunner.mxml`
-  File.delete 'deploy/Router.swf.cache'
+  File.delete 'deploy/Router.swf.cache' if File.exist? 'deploy/Router.swf.cache'
   `open deploy/index.html`
 end
 
