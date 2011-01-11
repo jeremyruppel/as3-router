@@ -56,7 +56,7 @@ that should be familiar to anyone who has experience routing with Sinatra or Bac
 
 `mapRoute` can accept named parameters denoted by a colon. For example:
 
-	router.mapRoute( '/hello/:name' );
+	router.mapRoute( '/hello/:name', CustomRouteEvent.HELLO );
 
 will match "/hello/world", "hello/friend", "hello/no-wait-actually-goodbye", etc. The value of 
 a named parameter can be retrieved from the `route` object of the route event dispatched
@@ -66,7 +66,7 @@ when this route is matched, like:
 
 Multiple parameters can be declared and will each be matched by name:
 
-	router.mapRoute( '/:section/:page' );
+	router.mapRoute( '/:section/:page', CustomRouteEvent.PAGE );
 	
 	router.hasRoute( '/company/manifesto' ); // => true
 	
@@ -77,7 +77,7 @@ Multiple parameters can be declared and will each be matched by name:
 String routes can also contain splats that will be available as unnamed captures populated in
 the route object's `captures` array:
 
-	router.mapRoute( '/*/profile' );
+	router.mapRoute( '/*/profile', CustomRouteEvent.PROFILE );
 	
 	router.hasRoute( '/username/profile' ); // => true
 	
@@ -86,10 +86,20 @@ the route object's `captures` array:
 	// and for the event's route...
 	event.route.captures[ 0 ]; // => 'username'
 
+Routes also receive query parameters in their params object. This can be useful for
+tweaking behavior of routes:
+
+	router.mapRoute( '/blog', CustomRouteEvent.BLOG );
+	
+	router.route( '/blog?page=4' );
+	
+	// and for the event's route...
+	event.route.params( 'page' ); // => '4'
+
 `mapQuery` can match query-string-style routes if you need them. Because query strings are
 unordered key value pairs, they are matched as simple objects, like:
 
-	router.mapQuery( { page : 'home', action : 'whatever' } );
+	router.mapQuery( { page : 'home', action : 'whatever' }, CustomRouteEvent.HOME );
 	
 	router.route( '?action=whatever&page=home' );
 	
