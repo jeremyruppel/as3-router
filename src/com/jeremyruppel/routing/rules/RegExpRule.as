@@ -75,6 +75,7 @@ package com.jeremyruppel.routing.rules
 		 */
 		public function matches( route : String ) : Boolean
 		{
+			_pattern.lastIndex = 0;
 			return _pattern.test( route.split( '?' ).shift( ) );
 		}
 		
@@ -85,6 +86,7 @@ package com.jeremyruppel.routing.rules
 		 */
 		public function execute( route : String ) : IRoute
 		{
+			_pattern.lastIndex = 0;
 			return new RegExpRoute( _pattern.exec( route.split( '?' ).shift( ) ), parse( route ) );
 		}
 	
